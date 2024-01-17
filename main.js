@@ -16,3 +16,4 @@ const mainArea = new SceneInit('mainAreaScene');
     }, undefined, error => {
       console.error(error);
     });
+

@@ -2,14 +2,262 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
 		<title>GLTF MODEL</title>
-		<style>body { margin: 0; }</style>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="nav.css" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	</head>
 	<body>
-		<div>
-			<canvas id='mainAreaScene'></canvas>
+
+		
+
+		<div >
+
+			
+			<!-- <button type="button" id="showAttributesBtn" class="btn btn-primary">Show Attributes</button> -->
+			
+			<div id="compassContainer">
+				<img src="./public/assets/arrow.png" alt="Compass" id="compass" width="80px" height="80px">
+			</div>
+	
+			
+	
+			<div class="round_container">
+	
+				<div class="circle_container">
+					<div class="circle_subcontainer">
+						<div class="circle" id="circle4" onclick="showInfo(4)"><iconify-icon icon="icon-park-outline:coordinate-system" style="color: white;"></iconify-icon></div>
+						<p class="round_text">Coordinates info</p>
+					</div>
+					<div class="info_container" id="info4">
+						<div id="close-icon" onclick="hideInfo(4)"><b>&times;</b></div>
+						
+						<div class="text_container mx-3 mb-3 mt-0">
+							<p>Latitude: 12.749585</p>
+							
+							<p>Longitude: 44.988504</p>
+							
+							<p id="coords">[12.749585,12.829585,44.988504,45.068504]</p>
+						</div>
+	
+						<div class="hidden">
+							<p>width and height: </p>
+							<p id="sizes">[{{ width }}, {{ height }}]</p>
+						</div>
+						
+					</div>
+				</div>
+	
+				<div class="circle_container">
+					<div class="circle_subcontainer">
+						<div class="circle" id="circle3" onclick="showInfo(3)"><iconify-icon icon="carbon:location-hazard" style="color: white;"></iconify-icon></div>
+						<p class="round_text">Risk analysis</p>
+					</div>
+					<div class="info_container" id="info3">
+						<div id="close-icon" onclick="hideInfo(3)"><b>&times;</b></div>
+						<div class="text_container mx-3 mb-3 mt-0">
+							<p>No risk detected</p>
+						</div>
+					</div>
+				</div>
+	
+				<div class="circle_container">
+					<div class="circle_subcontainer">
+						<div class="circle" id="circle1" onclick="showInfo(1)"><iconify-icon icon="iconoir:home" style="color: white;"></iconify-icon></div>
+						<p class="round_text">Buildings analysis</p>
+					</div>
+				
+					<div class="info_container" id="info1">
+						<div id="close-icon" onclick="hideInfo(1)"><b>&times;</b></div>
+						<div class="text_container mx-3 mb-3 mt-0">
+							<p id="red_number_text">Buildings at risk: 0</p> <p id="red_number"></p>
+							<p id="all_number_text">Buildings total: 57</p> <p id="all_number"></p>
+						</div>
+					</div>
+				</div>
+	
+				<div class="circle_container-long">
+					<div class="circle_subcontainer">
+						<div class="circle" id="circle2" onclick="showInfo(2)"><iconify-icon icon="ph:question-light" style="color: white;"></iconify-icon></div>
+						<p class="round_text">Buildings classification</p>
+					</div>
+					<div class="info_container" id="info2">
+						<div id="close-icon" onclick="hideInfo(2)"><b>&times;</b></div>
+						
+						<div class='circle-labels mx-3 mb-3 mt-0'>
+							<div>
+								<div class="d-flex"><span class="circle-icon" style="background-color: #8cd195;"></span> Agriculture </div>       
+								<div class="d-flex"><span class="circle-icon" style="background-color: #9c8873;"></span> Assembly </div> 
+								<div class="d-flex"><span class="circle-icon" style="background-color: #f7f37c;"></span> Education </div> 
+								<div class="d-flex"><span class="circle-icon" style="background-color: #f7b77c;"></span> Government </div> 
+							</div>
+							<div>
+								<div class="d-flex"><span class="circle-icon" style="background-color: #a18aff;"></span> Industrial </div> 
+								<div class="d-flex"><span class="circle-icon" style="background-color: #5c9aff;"></span> Residential </div> 
+								<div class="d-flex"><span class="circle-icon" style="background-color: grey;"></span> Misc </div> 
+								<div class="d-flex"><span class="circle-icon" style="background-color: white;"></span> No info </div>
+							</div>
+						</div>
+						<!-- <div class="d-flex"><span class="legend-icon" style="background-color: #a0ff93;"></span>Agriculture <input type="checkbox"></div>
+						<div class="d-flex"><p>Assembly</p> <input type="checkbox"></div>
+						<div class="d-flex"><p>Education</p> <input type="checkbox"></div>
+						<div class="d-flex"><p>Government</p> <input type="checkbox"></div>
+						<div class="d-flex"><p>Industrial</p> <input type="checkbox"></div>
+						<div class="d-flex"><p>Residential</p> <input type="checkbox"></div>
+						<div class="d-flex"><p>Misc</p> <input type="checkbox"></div> -->
+					
+					</div>
+				</div>
+			</div>
+	
+	
+	
+			<div class="my-weather">
+				<!-- <div class='weather-title'>Weather</div> -->
+				<div class='weather-scale'>
+					<div id="date-info">
+						<span id="month-info"></span>
+						<span id="day-info"></span>
+					</div>
+					<span id="terrain-info"></span><br>
+					<span id="temperature-scale"></span><br>
+					<span id="feels-like-temp-scale"></span><br><br>
+					<div class="metrics-container-main">
+						<div class="metrics-container">
+							<span id="wind-scale"></span><br>
+							<span id="humidity-scale"></span>
+						</div> 
+						<div class="metrics-container">
+							<span id="visibility-scale"></span><br>
+							<span id="pressure-scale"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+	
+		
 		</div>
-		<script type="module" src="/main.js"></script>
+		
+		
+		<div >
+			<div>
+				<canvas id='mainAreaScene'></canvas>
+			</div>
+			<button type="button" id="showAttributesBtn" class="btn btn-primary">Layers</button>
+			<div id="nav-bar-card" class="hidden-card background-radial-gradient h-auto text-white">
+				<button type="button" class="close-card-btn text-white" id="closeCardBtn"><b>&times;</b></button>
+				<button type="button" id="hideShowt" class="btn btn-primary">Hide / Show Terrain Layer</button>
+				<button type="button" id="hideShowr" class="btn btn-primary">Hide / Show Risk Layer</button> 
+			</div>	
+		<div>
+			<!-- <script src="./ThreeJS/three.min.js"></script>
+			<script src="./ThreeJS/OrbitControls.js"></script>
+			<script src="./ThreeJS/TerrainLoader.js"></script>
+			<script src="./node_modules/geolib/lib/index.js"></script> -->
+			<!-- Three JS map rendering script-->
+			<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				const card = document.getElementById("nav-bar-card");
+				const showAttributesBtn = document.getElementById("showAttributesBtn");
+				showAttributesBtn.addEventListener("click", function() {
+					card.classList.toggle("hidden-card");
+				});
+			});
+			document.addEventListener("DOMContentLoaded", function() {
+				const card = document.getElementById("nav-bar-card");
+				const closeCardBtn = document.getElementById("closeCardBtn");
+		
+				closeCardBtn.addEventListener("click", function() {
+					card.classList.add("hidden-card");
+				});
+			});
+	
+			function showInfo(id) {
+				document.getElementById('info' + id).style.display = 'block';
+			}
+	
+			function hideInfo(id) {            
+				document.getElementById('info' + id).style.display = 'none';    
+			}
+	
+			document.addEventListener("DOMContentLoaded", function() {});
+	
+			document.getElementById("hideShowt").addEventListener("click", function(){
+				mainAreaScene.classList.toggle("hidden-card");
+			});
+
+			</script>
+			<script>
+				 
+	
+				
+				let coords_string = document.getElementById("coords").innerHTML;
+				let coords_array = JSON.parse(coords_string);
+	
+				
+	
+				
+				async function weather(){
+					const apiKey = '04d89740139a74905e2d34f4f9eee6a8';
+					const weatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords_array[0]}&lon=${coords_array[2]}&exclude=minutely,hourly&appid=${apiKey}`;
+					let weatherData;
+	
+					await fetch(weatherApiUrl)
+						.then(response => response.json())
+						.then(data => {
+							weatherData = data;
+							console.log('weatherData: ', data);
+							
+						})
+						.catch(error => {
+							console.error('Error fetching weather data:', error);
+						});
+	
+					const month = new Date().getMonth()+1;
+					const day = new Date().getDate();
+					
+					function getMonthName(monthNumber) {
+	
+						const months = [
+							'January', 'February', 'March', 'April',
+							'May', 'June', 'July', 'August',
+							'September', 'October', 'November', 'December'
+						];
+	
+						// Check if the monthNumber is within a valid range
+						if (monthNumber >= 1 && monthNumber <= 12) {
+							// Subtracting 1 because array indices start from 0
+							return months[monthNumber - 1];
+						} else {
+							return 'Invalid month';
+						}
+				}
+					document.getElementById('month-info').innerHTML = getMonthName(month);
+					document.getElementById('day-info').innerHTML = day;
+					//document.getElementById('terrain-info').innerHTML = weatherData;
+					document.getElementById('temperature-scale').innerHTML = (weatherData.current.temp - 274).toFixed(0)+ ' °C';
+					document.getElementById('feels-like-temp-scale').innerHTML = 'Feels like: ' + (weatherData.current.feels_like - 274).toFixed(0) + ' °C';
+					document.getElementById('wind-scale').innerHTML = 'Wind: ' + weatherData.current.wind_speed + 'm/s';
+					document.getElementById('humidity-scale').innerHTML = 'Humidity: ' + weatherData.current.humidity + '%';
+					document.getElementById('visibility-scale').innerHTML = 'Visibility: ' + weatherData.current.visibility / 1000 + 'km';
+					document.getElementById('pressure-scale').innerHTML = 'Pressure: ' + weatherData.current.pressure + 'hPa'; 
+				}
+				
+				//console.log("sizeX: ", sizeX, ", sizeY: ", sizeY);
+				//genTestTerrain();
+				weather();
+				
+			</script>
+		</div>
+		</div>
+		<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+		<script type="module" src="main.js"></script>
+		<!-- <script>
+			document.getElementById(risk_span).style.backgroundColor = riskcolor
+		</script> -->
 	</body>
 </html>
